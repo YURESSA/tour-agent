@@ -2,6 +2,7 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/app.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/app/controllers/constructor/crud.py" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/app/controllers/tours/models/create_popular_table.py" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/app/controllers/tours/models/get_tours.py" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/app/controllers/tours/models/update_cost.py" dialect="GenericSQL" />
