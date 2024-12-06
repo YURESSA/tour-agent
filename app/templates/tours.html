@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Туры{% endblock %}
+
+{% block content %}
+<h1>Список туров</h1>
+
+<form method="GET" action="{{ url_for('routes_bp.get_tours_by_pay_type') }}" class="mb-4">
+    <div class="form-group">
+        <label for="pay_type">Тип оплаты:</label>
+        <select name="pay_type" id="pay_type" class="form-select">
+            <option value="0" {% if pay_type == '0' %}selected{% endif %}>Наличные</option>
+            <option value="1" {% if pay_type == '1' %}selected{% endif %}>Оплата картой</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Показать</button>
+</form>
+
+<div id="tours">
+    {% if tours %}
+        <h2>Туры с типом оплаты: {{ "Наличные" if pay_type == '0' else "Безналичные" }}</h2>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Дата начала</th>
+                    <th>Стоимость</th>
+                    <th>Популярность</th>
+                    <th>Тип оплаты</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tour in tours %}
+                <tr>
+                    <td>{{ tour.name }}</td>
+                    <td>{{ tour.date }}</td>
+                    <td>{{ tour.cost }}</td>
+                    <td>{{ tour.popularity }}</td>
+                    <td>{{ tour.pay_type }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Нет доступных туров для выбранного типа оплаты.</p>
+    {% endif %}
+</div>
+{% endblock %}
