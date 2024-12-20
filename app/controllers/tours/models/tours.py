@@ -1,3 +1,3 @@
 from app.controllers.constructor.crud import CRUD
 
-admin_crud = CRUD('admin')
+tour_crud = CRUD('tour')
