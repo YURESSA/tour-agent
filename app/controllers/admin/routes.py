@@ -1,8 +1,9 @@
-from flask import request, flash, session
-from flask_restx import Namespace, Resource, fields
+from flask import request, flash
 from flask_login import login_user, logout_user
-from app.models.user import User
+from flask_restx import Namespace, Resource, fields
+
 from app.controllers.constructor.crud import CRUD
+from app.models.user import User
 
 admin_ns = Namespace('admin', description='Операции администратора')
 register_model = admin_ns.model('User', {

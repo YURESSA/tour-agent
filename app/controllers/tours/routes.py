@@ -17,6 +17,7 @@ tour_model = tours_ns.model('Tour', {
 
 @tours_ns.route('/')
 class TourList(Resource):
+    @login_required
     @tours_ns.doc('get_all_tours')
     def get(self):
         """

@@ -1,14 +1,13 @@
 import os
-import requests  # Подключаем библиотеку для отправки запросов к API
 
-from flask import Blueprint, render_template, redirect, url_for, request, session
-from flask_login import logout_user, login_user, login_required
+import requests
+from flask import Blueprint, render_template, redirect, url_for, request
 
 template_folder = os.path.join(os.path.dirname(__file__), '..', '..', 'templates', 'visualization')
 
 visualization_bp = Blueprint('visualization', __name__, template_folder=template_folder)
 
-API_BASE_URL = 'http://localhost:5000/api'  # Базовый URL для API
+API_BASE_URL = 'http://localhost:5000/api'
 
 
 @visualization_bp.route('/')
