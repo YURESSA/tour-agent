@@ -1,35 +1,147 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Список туров</h1>
+<div class="container">
+    <h2>Список туров</h2>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Название</th>
-            <th>Дата</th>
-            <th>Стоимость</th>
-            <th>Популярность</th>
-            <th>Тип оплаты</th>
-            <th>Действия</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for tour in tours %}
-        <tr>
-            <td>{{ tour.id }}</td>
-            <td>{{ tour.name }}</td>
-            <td>{{ tour.date }}</td>
-            <td>{{ tour.cost }}</td>
-            <td>{{ tour.popularity }}</td>
-            <td>{{ tour.pay_type }}</td>
-            <td>
-                <a href="/visualization/tours/edit/{{ tour.id }}" class="btn btn-warning btn-sm">Редактировать</a>
-                <a href="/visualization/tours/delete/{{ tour.id }}" class="btn btn-danger btn-sm">Удалить</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <!-- Форма фильтрации -->
+    <form method="get" class="mb-4">
+        <div class="d-flex flex-wrap">
+            <div class="form-group mr-2">
+                <label for="country" class="sr-only">Страна</label>
+                <input type="text" class="form-control" id="country" name="country" placeholder="Страна" value="{{ request.args.get('country', '') }}">
+            </div>
+            <div class="form-group mr-2">
+                <label for="city" class="sr-only">Город</label>
+                <input type="text" class="form-control" id="city" name="city" placeholder="Город" value="{{ request.args.get('city', '') }}">
+            </div>
+            <div class="form-group mr-2">
+                <label for="hotel" class="sr-only">Отель</label>
+                <input type="text" class="form-control" id="hotel" name="hotel" placeholder="Отель" value="{{ request.args.get('hotel', '') }}">
+            </div>
+            <div class="form-group mr-2">
+                <label for="date" class="sr-only">Дата</label>
+                <input type="date" class="form-control" id="date" name="date" value="{{ request.args.get('date', '') }}">
+            </div>
+            <div class="form-group mr-2">
+                <label for="min_cost" class="sr-only">Минимальная стоимость</label>
+                <input type="number" class="form-control" id="min_cost" name="min_cost" placeholder="Минимальная стоимость" value="{{ request.args.get('min_cost', '') }}">
+            </div>
+            <div class="form-group mr-2">
+                <label for="max_cost" class="sr-only">Максимальная стоимость</label>
+                <input type="number" class="form-control" id="max_cost" name="max_cost" placeholder="Максимальная стоимость" value="{{ request.args.get('max_cost', '') }}">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary mt-2">Фильтровать</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Таблица с турами -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Название</th>
+                <th>Дата</th>
+                <th>Стоимость</th>
+                <th>Популярность</th>
+                <th>Тип оплаты</th>
+                <th>Страна</th>
+                <th>Город</th>
+                <th>Отель</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tour in tours %}
+            <tr>
+                <td>{{ tour.id }}</td>
+                <td>{{ tour.name }}</td>
+                <td>{{ tour.date }}</td>
+                <td>{{ tour.cost }}</td>
+                <td>{{ tour.popularity }}</td>
+                <td>{{ tour.pay_type }}</td>
+                <td>{{ tour.country }}</td>
+                <td>{{ tour.city }}</td>
+                <td>{{ tour.hotel }}</td>
+                <td>
+                    <!-- Кнопка редактирования -->
+                    <a href="{{ url_for('visualization.edit_tour', tour_id=tour.id) }}" class="btn btn-warning btn-sm">Редактировать</a>
+                    <!-- Кнопка удаления -->
+                    <a href="{{ url_for('visualization.delete_tour', tour_id=tour.id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Вы уверены, что хотите удалить этот тур?')">Удалить</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Встроенные стили -->
+<style>
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .form-group input {
+        width: 150px; /* Уменьшение ширины элементов */
+    }
+
+    .d-flex {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .d-flex .form-group {
+        margin-right: 15px;
+        margin-bottom: 10px;
+    }
+
+    .d-flex .form-group input {
+        width: 120px; /* Еще меньше ширина для ввода */
+    }
+
+    .d-flex .btn {
+        margin-top: 27px; /* Выравнивание кнопки по высоте */
+    }
+</style>
+
+{% block scripts %}
+    <script>
+        window.onload = function() {
+            const token = localStorage.getItem('jwt_token');  // Используем 'jwt_token', если токен хранится под этим ключом
+            if (token) {
+                fetch('/api/admin/me', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                })
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.username) {
+                        document.getElementById('user-info').textContent = 'Привет, ' + data.username;
+                        document.getElementById('register-link').style.display = 'none';
+                        document.getElementById('login-link').style.display = 'none';
+                        document.getElementById('logout-button').style.display = 'inline';
+                        document.getElementById('create-tour-link').style.display = 'inline';
+                    }
+                })
+                .catch(error => console.error('Ошибка при загрузке данных пользователя:', error));
+            } else {
+                console.log('Токен не найден');
+            }
+        };
+
+        function logout() {
+            // Удаляем токен из localStorage
+            localStorage.removeItem('jwt_token');  // Здесь 'jwt_token', а не 'access_token'
+            // Перезагружаем страницу или редирект на страницу входа
+            window.location.href = '{{ url_for("visualization.login") }}';
+        }
+    </script>
+{% endblock %}
+
 {% endblock %}

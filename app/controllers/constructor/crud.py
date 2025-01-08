@@ -22,3 +22,14 @@ class CRUD:
         if record:
             db.session.delete(record)
             db.session.commit()
+            return True
+        return False
+
+    def update(self, record_id, data):
+        record = self.read(record_id)
+        if record:
+            for key, value in data.items():
+                setattr(record, key, value)
+            db.session.commit()
+            return record
+        return None

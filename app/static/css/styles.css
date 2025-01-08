@@ -1,42 +1,224 @@
+/* Общие настройки */
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fb;
+    color: #343a40;
     margin: 0;
     padding: 0;
+    line-height: 1.6;
 }
 
-header {
-    background: #333;
-    color: #fff;
-    padding: 1em 0;
-    text-align: center;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 10px;
-}
-
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-}
-
-main {
+/* Контейнер */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
 }
 
-footer {
-    background: #333;
-    color: #fff;
+/* Шапка (Header) */
+.header {
+    background-color: #007bff;
+    color: white;
+    padding: 20px 0;
     text-align: center;
-    padding: 10px 0;
-    position: fixed;
-    bottom: 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    padding: 15px 20px;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 0 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar a:hover {
+    background-color: #0056b3;
+}
+
+.navbar a.active {
+    background-color: #004085;
+}
+
+/* Карточки туров */
+.tour-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 15px 0;
+    padding: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.tour-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.tour-card h3 {
+    margin: 0 0 10px;
+    color: #007bff;
+}
+
+.tour-card p {
+    margin: 5px 0;
+}
+
+/* Кнопки */
+.btn {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Формы */
+form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+form input, form select, form textarea {
     width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+form input:focus, form select:focus, form textarea:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+/* Футер */
+.footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 50px;
+}
+
+.footer a {
+    color: #ffc107;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: white;
+}
+
+/* Боковая панель (Sidebar) */
+.sidebar {
+    background: #f8f9fa;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    transition: transform 0.3s ease;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px 20px;
+    color: #343a40;
+    text-decoration: none;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+}
+
+.sidebar a:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.sidebar .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Анимация открытия боковой панели */
+.sidebar.open {
+    transform: translateX(0);
+}
+
+/* Страница регистрации и входа */
+.login-register-container {
+    max-width: 400px;
+    margin: 30px auto;
+}
+
+.login-register-container form {
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-register-container input[type="text"], .login-register-container input[type="password"], .login-register-container input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.login-register-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-register-container button:hover {
+    background-color: #0056b3;
 }

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Детали тура: {{ tour.name }}</h2>
+    <p><strong>Дата:</strong> {{ tour.date }}</p>
+    <p><strong>Стоимость:</strong> {{ tour.cost }}</p>
+    <p><strong>Популярность:</strong> {{ tour.popularity }}</p>
+    <p><strong>Тип оплаты:</strong> {{ tour.pay_type }}</p>
+    <a href="{{ url_for('visualization.tours_list') }}" class="btn btn-secondary">Назад</a>
+</div>
+{% endblock %}

@@ -1,29 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Редактировать тур</h1>
-
-<form method="post" action="/visualization/tours/edit/{{ tour.id }}">
-    <div class="form-group">
-        <label for="name">Название тура</label>
-        <input type="text" class="form-control" id="name" name="name" value="{{ tour.name }}" required>
-    </div>
-    <div class="form-group">
-        <label for="date">Дата</label>
-        <input type="date" class="form-control" id="date" name="date" value="{{ tour.date }}" required>
-    </div>
-    <div class="form-group">
-        <label for="cost">Стоимость</label>
-        <input type="number" class="form-control" id="cost" name="cost" value="{{ tour.cost }}" required>
-    </div>
-    <div class="form-group">
-        <label for="popularity">Популярность</label>
-        <input type="number" class="form-control" id="popularity" name="popularity" value="{{ tour.popularity }}" required>
-    </div>
-    <div class="form-group">
-        <label for="pay_type">Тип оплаты</label>
-        <input type="text" class="form-control" id="pay_type" name="pay_type" value="{{ tour.pay_type }}" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Обновить</button>
-</form>
+<div class="container mt-5">
+    <h1>Редактировать тур</h1>
+    <form method="POST">
+        <div class="form-group">
+            <label for="name">Название тура</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ tour.name }}" required>
+        </div>
+        <div class="form-group">
+            <label for="date">Дата тура</label>
+            <input type="date" class="form-control" id="date" name="date" value="{{ tour.date }}" required>
+        </div>
+        <div class="form-group">
+            <label for="cost">Стоимость</label>
+            <input type="number" class="form-control" id="cost" name="cost" value="{{ tour.cost }}" step="0.01" required>
+        </div>
+        <div class="form-group">
+            <label for="popularity">Популярность</label>
+            <input type="text" class="form-control" id="popularity" name="popularity" value="{{ tour.popularity }}" required>
+        </div>
+        <div class="form-group">
+            <label for="pay_type">Тип оплаты</label>
+            <input type="text" class="form-control" id="pay_type" name="pay_type" value="{{ tour.pay_type }}" required>
+        </div>
+        <div class="form-group">
+            <label for="country">Страна</label>
+            <input type="text" class="form-control" id="country" name="country" value="{{ tour.country }}" required>
+        </div>
+        <div class="form-group">
+            <label for="city">Город</label>
+            <input type="text" class="form-control" id="city" name="city" value="{{ tour.city }}" required>
+        </div>
+        <div class="form-group">
+            <label for="hotel">Отель</label>
+            <input type="text" class="form-control" id="hotel" name="hotel" value="{{ tour.hotel }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+    </form>
+</div>
 {% endblock %}
